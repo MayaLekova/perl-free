@@ -18,8 +18,15 @@ my $grammar = qr {
     <rule: shape_call>
         <call_name=shape_name> \{ <[transformations=transformation]>* \}
 
+    <nocontext:>
     <rule: transformation>
-        \w*
+        <.cmd= (s|size) > <size=(-?\d+|-?\d+ -?\d+)>
+      | <.cmd= (x) > <x=(-?\d+)>
+      | <.cmd= (y) > <y=(-?\d+)>
+      | <.cmd= (hue|h) > <hue=(-?\d)>
+      | <.cmd= (sat|saturation) > <saturation=(-?\d)>
+      | <.cmd= (b|brightness) > <brightness=(-?\d)>
+      | <.cmd= (skew) > <skew=(-?\d+ -?\d+)>
 }xms;
 
 sub parse ($){

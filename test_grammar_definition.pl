@@ -25,18 +25,50 @@ CFDGTEXT
 
 my $parsed_hash = CFDGParser::parse($text);
 is_deeply $parsed_hash->{definitions},  [
-                                         {shape_name => 'Baba',
+                                         {
+                                          shape_name => 'Baba',
                                           calls => [{
                                                      call_name => 'CIRCLE',
-                                                     transformations => ['']
                                                    },
 
                                                    {
                                                      call_name => 'SQUARE',
-                                                     transformations => ['']
                                                    }]
                                         }
-                                        ], "parse a simple rule with one call";
+                                        ],
+                                        "parse a simple rule with one call";
+}
+
+{
+#Shape definition with transformations
+my $text = <<CFDGTEXT
+startshape Dyado
+
+rule Dyado {
+    CIRCLE {}
+    TRIANGLE { x 5 y 10 size 7 2 }
+}
+CFDGTEXT
+;
+
+my $parsed_hash = CFDGParser::parse($text);
+is_deeply $parsed_hash->{definitions}, [
+                                        {
+                                         shape_name => 'Dyado',
+                                         calls => [
+                                                   {
+                                                    call_name => 'CIRCLE',
+                                                   },
+                                                   {
+                                                    call_name => 'TRIANGLE',
+                                                    transformations => [{ x => 5 },
+                                                                        { y => 10 },
+                                                                        { size => '7 2' }
+                                                                       ]
+                                                   }
+                                                  ]
+                                        }
+                                       ]
 }
 
 done_testing();
