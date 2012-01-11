@@ -18,12 +18,25 @@ startshape Baba
 
 rule Baba {
     CIRCLE {}
+    SQUARE {}
 }
 CFDGTEXT
 ;
 
 my $parsed_hash = CFDGParser::parse($text);
-is_deeply $parsed_hash->{definitions}, [{shape_name => 'Baba', calls => [{call_name => 'CIRCLE', transformations => ['']}] }], "parse a simple rule with one call";
+is_deeply $parsed_hash->{definitions},  [
+                                         {shape_name => 'Baba',
+                                          calls => [{
+                                                     call_name => 'CIRCLE',
+                                                     transformations => ['']
+                                                   },
+
+                                                   {
+                                                     call_name => 'SQUARE',
+                                                     transformations => ['']
+                                                   }]
+                                        }
+                                        ], "parse a simple rule with one call";
 }
 
 done_testing();
