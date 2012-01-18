@@ -6,8 +6,7 @@ use Data::Dump 'dump';
 $\ = "\n";
 
 my $grammar = qr {
-    <nocontext:>
-    startshape\s+<startshape=shape_name> <[definitions=shape_definition]>*
+    <nocontext:>startshape\s+<startshape=shape_name> <[definitions=shape_definition]>*
 
     <rule: shape_name>
         \w+
@@ -18,15 +17,18 @@ my $grammar = qr {
     <rule: shape_call>
         <call_name=shape_name> \{ <[transformations=transformation]>* \}
 
-    <nocontext:>
     <rule: transformation>
-        <.cmd= (s|size) > <size=(-?\d+|-?\d+ -?\d+)>
-      | <.cmd= (x) > <x=(-?\d+)>
-      | <.cmd= (y) > <y=(-?\d+)>
-      | <.cmd= (hue|h) > <hue=(-?\d)>
-      | <.cmd= (sat|saturation) > <saturation=(-?\d)>
-      | <.cmd= (b|brightness) > <brightness=(-?\d)>
-      | <.cmd= (skew) > <skew=(-?\d+ -?\d+)>
+        <cmd= (s|size) >         <[values=signed_num]>{1,2} % <_sep=( )>
+      | <cmd= (x) >              <[values=signed_num]>
+      | <cmd= (y) >              <[values=signed_num]>
+      | <cmd= (hue|h) >          <[values=signed_num]>
+      | <cmd= (sat|saturation) > <[values=signed_num]>
+      | <cmd= (b|brightness) >   <[values=signed_num]>
+      | <cmd= (r|rotate)>        <[values=signed_num]>
+      | <cmd= (skew) >           <[values=signed_num]>{1,2} % <_sep=( )>
+
+    <rule: signed_num>
+        -?\d+(\.\d+)?
 }xms;
 
 sub parse ($){
