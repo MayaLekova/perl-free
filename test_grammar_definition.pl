@@ -61,7 +61,8 @@ is_deeply $parsed_hash->{definitions}, [
                                                    },
                                                    {
                                                     call_name => 'TRIANGLE',
-                                                    transformations => [{ cmd => 'x',    values => [5] },
+                                                    transformations => [
+                                                                        { cmd => 'x',    values => [5] },
                                                                         { cmd => 'y',    values => [-10] },
                                                                         { cmd => 'size', values => [7, 2] }
                                                                        ]
@@ -94,7 +95,8 @@ is_deeply $parsed_hash->{definitions}, [
                                                    },
                                                    {
                                                     call_name => 'TRIANGLE',
-                                                    transformations => [{ cmd => 'x',    values => [5] },
+                                                    transformations => [
+                                                                        { cmd => 'x',    values => [5] },
                                                                         { cmd => 'y',    values => [10] },
                                                                         { cmd => 'size', values => [7.5, 2] },
                                                                         { cmd => 'r',    values => [12.32] }

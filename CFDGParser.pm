@@ -21,12 +21,11 @@ my $grammar = qr {
         <cmd= (s|size) >         <[values=signed_num]>{1,2} % <_sep=( )>
       | <cmd= (x) >              <[values=signed_num]>
       | <cmd= (y) >              <[values=signed_num]>
+      | <cmd= (r|rotate)>        <[values=signed_num]>
+      | <cmd= (skew) >           <[values=signed_num]>{1,2} % <_sep=( )>
       | <cmd= (hue|h) >          <[values=signed_num]>
       | <cmd= (sat|saturation) > <[values=signed_num]>
       | <cmd= (b|brightness) >   <[values=signed_num]>
-      | <cmd= (r|rotate)>        <[values=signed_num]>
-      | <cmd= (skew) >           <[values=signed_num]>{1,2} % <_sep=( )>
-
     <rule: signed_num>
         -?\d+(\.\d+)?
 }xms;
