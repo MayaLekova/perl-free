@@ -2,10 +2,14 @@ use Test::More;
 
 BEGIN { 
     use_ok ( 'Transformation' );
-    use_ok ( 'ShapeCall' )
+    use_ok ( 'ShapeCall' );
+    use_ok ( 'Rule' );
+    use_ok ( 'CFDGParser' );
 }
 require_ok ('Transformation');
 require_ok ('ShapeCall');
+require_ok ('Rule');
+require_ok ('CFDGParser');
 
 
 subtest "Transformation" => sub {
@@ -18,8 +22,15 @@ subtest "Transformation" => sub {
 
 subtest "ShapeCall" => sub {
     my $shape_call = ShapeCall->new( { call_name => 'CIRCLE', transformations => [ { cmd => 'x', values => [2] } ] } );
-
     isa_ok($shape_call->{transformations}->[0], Transformation) || diag explain $shape_call;
+};
+
+
+subtest "Rule" => sub {
+    my $text = "startshape Baba;\nrule Baba {\n \nCIRCLE { x 2 y 3 }\nSQUARE { s 0.7 }\n}\n";
+    my $syntax_tree = CFDGParser->parse($text);
+    my $baba = Rule->new($syntax_tree->{definitions}->[0]);
+    isa_ok($baba, Rule) || diag explain $baba;
 };
 
 done_testing();
