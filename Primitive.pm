@@ -1,4 +1,5 @@
 package Primitive;
+use strict;
 
 sub new {
     my $class = shift;

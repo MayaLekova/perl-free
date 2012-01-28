@@ -1,4 +1,5 @@
 package ShapeCall;
+use strict;
 use Transformation;
 
 sub new {

@@ -1,4 +1,5 @@
 package Transformation;
+use strict;
 
 my $geometric = {'s' => 1, 'size' => 1, 'x' => 1, 'y' => 1, 'r' => 1, 'rotate' => 1, 'skew' => 1};
 my $color = {'h' => 1, 'hue' => 1, 'b' => 1, 'brightness' => 1, 'a' => 1, 'alpha' => 1};

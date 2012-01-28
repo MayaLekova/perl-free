@@ -1,6 +1,6 @@
 package Rule;
+use strict;
 use ShapeCall;
-use Data::Dump qw[dump];
 
 sub new {
     my $class = shift;
