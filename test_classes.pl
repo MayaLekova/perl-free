@@ -1,4 +1,5 @@
 use Test::More;
+use strict;
 
 BEGIN { 
     use_ok ( 'Transformation' );
