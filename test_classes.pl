@@ -56,7 +56,7 @@ TEXT
     isa_ok($baba, Rule) || diag explain $baba;
     is ($baba->{shape_name}, 'Baba', 'the rule has the name given');
     isa_ok($baba->{calls}->[0], ShapeCall);
-    is_deeply $baba->{calls}->[0]->{transformations}->[0], { cmd => 'x', values => [2] }, "transformations are kept in the right places";
+    is_deeply $baba->{calls}->[0]->{transformations}->[0], { cmd => 'x', values => [2], type => 'geometric' }, "transformations are kept in the right places";
 };
 
 done_testing();
