@@ -25,7 +25,7 @@ subtest "Transformation" => sub {
 
     subtest "translation matrices" => sub {
         my $translate_x_by_2 = Transformation->new( {cmd => 'x', values => [2]} );
-        my $matrx = $translate_x_by_2->matrix();
+        my $matrix = $translate_x_by_2->matrix();
         is_deeply $matrix, [
                             [1, 0, 2],
                             [0, 1, 0],
