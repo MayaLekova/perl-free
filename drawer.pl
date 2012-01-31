@@ -16,7 +16,7 @@ my $z=$svg->tag('g',
                     id    => 'group_z',
                     style => {
                         stroke => 'rgb(100,200,50)',
-                        fill   => 'rgb(10,100,150)'
+                        fill   => 'hsv(120,100%,25%)'
                     },
 		    transform=>'translate(100, 150)',
                 );
@@ -24,7 +24,7 @@ my $z=$svg->tag('g',
     # create and add a circle using the generic 'tag' method
     $z->tag('circle', cx=>50, cy=>50, r=>100, id=>'circle_in_group_z');
     $z->tag('rect', width=>120, height=>50,  id=>'rect_in_group_z',
-		transform=>'rotate(-45)');
+		transform=>'scale(1.5), rotate(-45), translate(30, 0),  translate(0, -20)');
     
     # create an anchor on a rectangle within a group within the group z
     my $k = $z->anchor(
@@ -35,7 +35,8 @@ my $z=$svg->tag('g',
         x     => 20, y      => 50,
         width => 20, height => 30,
         rx    => 10, ry     => 5,
-        id    => 'rect_k_in_anchor_k_in_group_z'
+        id    => 'rect_k_in_anchor_k_in_group_z',
+	transform=>'skewX(30)'
     );
 
     # now render the SVG object, implicitly use svg namespace

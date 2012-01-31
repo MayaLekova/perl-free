@@ -4,8 +4,8 @@ use Test::More;
 use strict;
 
 use constant GEOMETRIC => {'s' => 1, 'size' => 1, 'x' => 1, 'y' => 1, 'r' => 1, 'rotate' => 1, 'skew' => 1};
-use constant COLOR => {'h' => 1, 'hue' => 1, 'b' => 1, 'brightness' => 1, 'a' => 1, 'alpha' => 1};
-use constant SHORT_COMMANDS => {'h' => 'hue', 's' => 'size', 'a' => 'alpha', 'r' => 'rotate', 'b' => 'brightness'};
+use constant COLOR => {'h' => 1, 'hue' => 1, 'sat' => 1,  'saturation' => 1, 'b' => 1, 'brightness' => 1, 'a' => 1, 'alpha' => 1};
+use constant SHORT_COMMANDS => {'h' => 'hue', 'sat' => 'saturation', 's' => 'size', 'a' => 'alpha', 'r' => 'rotate', 'b' => 'brightness'};
 use constant GEOMETRIC_MATRIX_CONSTRUCTORS => {
     x => sub {
         my $x = shift;
@@ -47,7 +47,7 @@ sub new {
     my $class = shift;
     my $self = shift;
 
-    if (exists SHORT_COMMANDS->{$self->{cmd}}) {
+    if (exists SHORT_COMMANDS->{$self->{cmd}}) {	#store command internally as short command
         $self->{cmd} = SHORT_COMMANDS->{$self->{cmd}};
     }
 
@@ -80,6 +80,37 @@ sub matrix {
         $rslt = GEOMETRIC_MATRIX_CONSTRUCTORS->{$self->{cmd}}->(@{$self->{values}});
     }
     return $rslt;
+}
+
+sub to_svg {
+    if($self->{cmd} == "s") {
+        return "scale(".@{$self->{values}}[0].", ".@{$self->{values}}[1].")";
+    }
+   elsif($self->{cmd} == "x") {
+        return "translate(".@{$self->{values}}[0].", 0)";
+    }
+    elsif($self->{cmd} == "y") {
+        return "translate(0, ".@{$self->{values}}[0].")";
+    }
+    elsif($self->{cmd} == "r") {
+        return "rotate(".@{$self->{values}}[0].")";
+    }
+    elsif($self->{cmd} == "skew") {
+        return "skewX(".@{$self->{values}}[0]."), skewY(".@{$self->{values}}[1].")";
+    }
+    elsif($self->{cmd} == "h") {
+        # TODO: convert hsv to rgb
+    }
+    elsif($self->{cmd} == "sat") {
+        # TODO: convert hsv to rgb
+    }
+    elsif($self->{cmd} == "b") {
+        # TODO: convert hsv to rgb
+    }
+    elsif($self->{cmd} == "a") {
+        # alpha?
+    }
+    return "";
 }
 
 1;
