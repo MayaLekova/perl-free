@@ -19,9 +19,9 @@ subtest "Transformation" => sub {
     my $geometric_transform = Transformation->new({cmd => 'size', values => [3]});
     is $geometric_transform->type, "geometric", "detects geometric type transformations";
 
-    isa_ok $geometric_transform->{values}, ARRAY;
+    isa_ok $geometric_transform->{values}, 'ARRAY';
     is_deeply $geometric_transform->{values}, [3], "preserve values";
-    isa_ok $color_transform->{values}, ARRAY;
+    isa_ok $color_transform->{values}, 'ARRAY';
     is_deeply $color_transform->{values}, [0.5], "preserve values";
 
     subtest "translation matrices" => sub {
@@ -37,7 +37,7 @@ subtest "Transformation" => sub {
 
 subtest "ShapeCall" => sub {
     my $shape_call = ShapeCall->new( { call_name => 'CIRCLE', transformations => [ { cmd => 'x', values => [2] } ] } );
-    isa_ok($shape_call->{transformations}->[0], Transformation);
+    isa_ok($shape_call->{transformations}->[0], 'Transformation');
 };
 
 print "\n\n";
@@ -54,9 +54,9 @@ TEXT
     my $syntax_tree = CFDGParser::parse($text);
 
     my $baba = Rule->new($syntax_tree->{definitions}->[0]);
-    isa_ok($baba, Rule) || diag explain $baba;
+    isa_ok($baba, 'Rule') || diag explain $baba;
     is ($baba->{shape_name}, 'Baba', 'the rule has the name given');
-    isa_ok($baba->{calls}->[0], ShapeCall);
+    isa_ok($baba->{calls}->[0], 'ShapeCall');
     is_deeply $baba->{calls}->[0]->{transformations}->[0], { cmd => 'x', values => [2], type => 'geometric' }, "transformations are kept in the right places";
 };
 
