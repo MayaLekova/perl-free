@@ -83,31 +83,33 @@ sub matrix {
 }
 
 sub to_svg {
-    if($self->{cmd} == "s") {
+    my $self = shift;
+
+    if($self->{cmd} =~ "s") {
         return "scale(".@{$self->{values}}[0].", ".@{$self->{values}}[1].")";
     }
-   elsif($self->{cmd} == "x") {
+   elsif($self->{cmd} =~ "x") {
         return "translate(".@{$self->{values}}[0].", 0)";
     }
-    elsif($self->{cmd} == "y") {
+    elsif($self->{cmd} =~ "y") {
         return "translate(0, ".@{$self->{values}}[0].")";
     }
-    elsif($self->{cmd} == "r") {
+    elsif($self->{cmd} =~ "r") {
         return "rotate(".@{$self->{values}}[0].")";
     }
-    elsif($self->{cmd} == "skew") {
+    elsif($self->{cmd} =~ "skew") {
         return "skewX(".@{$self->{values}}[0]."), skewY(".@{$self->{values}}[1].")";
     }
-    elsif($self->{cmd} == "h") {
+    elsif($self->{cmd} =~ "h") {
+        # TODO: convert hsv to rgb. Use http://search.cpan.org/~gphat/Graphics-Color-0.29/lib/Graphics/Color/HSV.pm
+    }
+    elsif($self->{cmd} =~ "sat") {
         # TODO: convert hsv to rgb
     }
-    elsif($self->{cmd} == "sat") {
+    elsif($self->{cmd} =~ "b") {
         # TODO: convert hsv to rgb
     }
-    elsif($self->{cmd} == "b") {
-        # TODO: convert hsv to rgb
-    }
-    elsif($self->{cmd} == "a") {
+    elsif($self->{cmd} =~ "a") {
         # alpha?
     }
     return "";
