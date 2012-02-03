@@ -1,7 +1,7 @@
 package Transformation;
 use Math::Trig;
 use Test::More;
-#use Graphics::ColorObject;
+use Graphics::ColorObject;
 use strict;
 
 use constant GEOMETRIC => {'s' => 1, 'size' => 1, 'x' => 1, 'y' => 1, 'r' => 1, 'rotate' => 1, 'skew' => 1};
@@ -132,29 +132,10 @@ sub to_hsv {
 
 sub to_rgb {
     my ($h, $s, $v) = @_;
-    
-    #================================================== Color HSV->RGB
-    
-    #~ my $color = Graphics::Color::HSV->new({
-        #~ hue         => $h,
-        #~ saturation => $s,
-        #~ value       => $v,
-    #~ });
-
-    #~ print "hsv as string: ".$color->as_string()."\n";
-
-    #~ my $rgb = $color->to_rgb();
-    
-    #~ print "rgb as int: ".$rgb->as_integer_string()."\n";
-    #~ print "rgb(".$rgb->r.", ".$rgb->g.", ".$rgb->b.")\n";
-    
-    #================================================== Color object
-    
-    #~ my $color = Graphics::ColorObject->new_HSV([$h, $s, $v]);
-    #~ my ($r, $g, $b) = @{ $color->as_RGB255() };
-    #~ print "rgb(".$r.", ".$g.", ".$b.")\n";
-
-    return "rgb(255, 0, 0)";
+        
+    my $color = Graphics::ColorObject->new_HSV([$h, $s, $v]);
+    my ($r, $g, $b) = @{ $color->as_RGB255() };
+    return "rgb(".$r.", ".$g.", ".$b.")\n";
 }
 
 1;

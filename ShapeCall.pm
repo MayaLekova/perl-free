@@ -30,7 +30,7 @@ sub to_svg {
     my $color_str = Transformation::to_rgb($h, $s, $v);
 
     my $group = $parent->tag('g', 
-        style => {fill   => $color_str, stroke => $color_str },
+        style => {fill   => $color_str, stroke => $color_str, fill-opacity=>'0.2' },
         transform => $transform_str);
     
     if($self->{call_name} eq 'TRIANGLE') {
