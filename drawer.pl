@@ -9,11 +9,11 @@ my $svg = SVG->new(width=>600, height=>400);
 open INPUT, $ARGV[0] or die $!;
 open OUTPUT, '>', $ARGV[1] or die $!;
 my @lines = <INPUT>;
-my $text = reduce { $a.$b } "", @lines;
+my $text = reduce { $a.$b } "", grep { $_ !~ /\/\//} @lines;
 
 my $parsed = CFDGParser::parse($text);
 my $drawing = Grammar->new($parsed);
-$drawing->to_svg($svg);
+$drawing->to_svg($svg, 50);
 
 #~ ===================== P A R S E R     T E S T =========================
 #~ ====================================================================
