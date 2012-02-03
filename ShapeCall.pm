@@ -13,7 +13,8 @@ sub new {
 }
 
 sub to_svg {
-    my ($self, $parent, $grammar) = @_;
+    my ($self, $parent, $grammar, $max_depth) = @_;
+    if ($max_depth <= 0) { return; }
     my $transform_str = "", my $h = 0, my $s = 0, my $v = 0, my $opacity = 1;
     foreach my $tr (@{$self->{transformations}}) {
         if($tr->type() eq 'geometric') {
@@ -57,7 +58,7 @@ sub to_svg {
     else {
 	my $successor = $grammar->{rules}->{$self->{call_name}};
 	if($successor) {
-	    $successor->to_svg($group, $grammar);
+	    $successor->to_svg($group, $grammar, $max_depth);
 	}
     }
 }
