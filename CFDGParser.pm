@@ -26,7 +26,7 @@ my $grammar = qr {
       | <cmd= (h|hue) >          <[values=signed_num]>
       | <cmd= (sat|saturation) > <[values=signed_num]>
       | <cmd= (b|brightness) >   <[values=signed_num]>
-    
+      | <cmd= (a|alpha) >   <[values=signed_num]>
     <rule: signed_num>
         -?\d+(\.\d+)?
 

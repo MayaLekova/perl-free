@@ -5,7 +5,8 @@ use Graphics::ColorObject;
 use strict;
 
 use constant GEOMETRIC => {'s' => 1, 'size' => 1, 'x' => 1, 'y' => 1, 'r' => 1, 'rotate' => 1, 'skew' => 1};
-use constant COLOR => {'h' => 1, 'hue' => 1, 'sat' => 1,  'saturation' => 1, 'b' => 1, 'brightness' => 1, 'a' => 1, 'alpha' => 1};
+use constant COLOR => {'h' => 1, 'hue' => 1, 'sat' => 1,  'saturation' => 1, 'b' => 1, 'brightness' => 1};
+use constant ALPHA => {'a' => 1, 'alpha' => 1};
 use constant SHORT_COMMANDS => {'h' => 'hue', 'sat' => 'saturation', 'b' => 'brightness', 's' => 'size', 'a' => 'alpha', 'r' => 'rotate'};
 use constant GEOMETRIC_MATRIX_CONSTRUCTORS => {
     x => sub {
@@ -68,6 +69,9 @@ sub type {
     }
     elsif (exists COLOR->{$self->{cmd}} ) {
         return "color";
+    }
+    elsif (exists ALPHA->{$self->{cmd}} ) {
+        return "alpha";
     }
     else {
         die("This is one weird transformation...");

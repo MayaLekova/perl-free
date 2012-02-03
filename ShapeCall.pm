@@ -14,13 +14,16 @@ sub new {
 
 sub to_svg {
     my ($self, $parent, $grammar) = @_;
-    my $transform_str = "", my $h = 0, my $s = 0, my $v = 0;
+    my $transform_str = "", my $h = 0, my $s = 0, my $v = 0, my $opacity = 1.0;
     foreach my $tr (@{$self->{transformations}}) {
         if($tr->type() eq 'geometric') {
             $transform_str = $transform_str.$tr->to_svg().", ";
         }
         elsif($tr->type() eq 'color') {
             ($h, $s, $v) = $tr->to_hsv($h, $s, $v);
+        }
+        elsif($tr->{cmd} eq 'alpha') {
+            $opacity *= @{$tr->{values}}[0];
         }
     }
 
@@ -30,7 +33,7 @@ sub to_svg {
     my $color_str = Transformation::to_rgb($h, $s, $v);
 
     my $group = $parent->tag('g', 
-        style => {fill   => $color_str, stroke => $color_str, fill-opacity=>'0.2' },
+        style => {fill   => $color_str, stroke => $color_str, 'fill-opacity' => "$opacity", 'stroke-opacity' => "$opacity" },
         transform => $transform_str);
     
     if($self->{call_name} eq 'TRIANGLE') {
@@ -43,14 +46,12 @@ sub to_svg {
                 -closed=>'true'
             );
 
-        $group->polygon(%$points, 
-            style => {fill   => $color_str, stroke => $color_str },
-            transform => $transform_str);
+        $group->polygon(%$points);
     }
     elsif($self->{call_name} eq 'SQUARE') {
         $group->rect(width => SCALE, height => SCALE);
     }
-    elsif ($self->{call_name} eq 'CIRCLE') {
+    elsif($self->{call_name} eq 'CIRCLE') {
         $group->circle(cx=>0, cy=>0, r => SCALE);
     }
     else {

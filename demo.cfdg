@@ -2,7 +2,7 @@ startshape Dedo
 
 rule Baba {
     CIRCLE { x -100 y -50 h 150 sat 0.5 b 0.7 }
-    SQUARE { x -50 y -100 }
+    SQUARE { x -100 y -50 a 0.5 }
 }
 
 rule Dedo {
