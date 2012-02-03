@@ -22,7 +22,7 @@ CFDGTEXT
     ;
 
     my $parsed_hash2 = CFDGParser::parse($text2);
-    is_deeply $parsed_hash2->{definitions},  [
+    is_deeply $parsed_hash2->{rules},  [
                                              {
                                               shape_name => 'Baba',
                                               calls => [{
@@ -50,7 +50,7 @@ CFDGTEXT
     ;
 
     my $parsed_hash3 = CFDGParser::parse($text3);
-    is_deeply $parsed_hash3->{definitions}, [
+    is_deeply $parsed_hash3->{rules}, [
                                             {
                                              shape_name => 'Dyado',
                                              calls => [
@@ -82,7 +82,7 @@ CFDGTEXT
     ;
 
     my $parsed_hash4 = CFDGParser::parse($text4);
-    is_deeply $parsed_hash4->{definitions}, [
+    is_deeply $parsed_hash4->{rules}, [
                                             {
                                              shape_name => 'Dyado',
                                              calls => [
@@ -127,7 +127,7 @@ CFDGTEXT
 ;
     my $parsed_hash5 = CFDGParser::parse($text5);
 
-    is_deeply $parsed_hash5->{definitions}, [
+    is_deeply $parsed_hash5->{rules}, [
                                              {
                                               shape_name => 'Dyado',
                                               calls => [

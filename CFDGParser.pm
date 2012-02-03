@@ -6,7 +6,7 @@ use Data::Dump 'dump';
 $\ = "\n";
 
 my $grammar = qr {
-    <nocontext:>startshape\s+<startshape=shape_name> <[definitions=shape_definition]>*
+    <nocontext:>startshape\s+<startshape=shape_name> <[rules=shape_definition]>*
 
     <rule: shape_name>
         \w+

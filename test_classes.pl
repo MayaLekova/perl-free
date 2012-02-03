@@ -53,7 +53,7 @@ TEXT
 ;
     my $syntax_tree = CFDGParser::parse($text);
 
-    my $baba = Rule->new($syntax_tree->{definitions}->[0]);
+    my $baba = Rule->new($syntax_tree->{rules}->[0]);
     isa_ok($baba, 'Rule') || diag explain $baba;
     is ($baba->{shape_name}, 'Baba', 'the rule has the name given');
     isa_ok($baba->{calls}->[0], 'ShapeCall');
