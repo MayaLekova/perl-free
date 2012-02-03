@@ -7,7 +7,7 @@ use Grammar;
 my $svg = SVG->new(width=>600, height=>400);
 
 open INPUT, $ARGV[0] or die $!;
-open OUTPUT, '+<', $ARGV[1] or die $!;
+open OUTPUT, '>', $ARGV[1] or die $!;
 my @lines = <INPUT>;
 my $text = reduce { $a.$b } "", @lines;
 

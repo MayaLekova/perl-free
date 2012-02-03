@@ -14,7 +14,7 @@ sub new {
 
 sub to_svg {
     my ($self, $parent, $grammar) = @_;
-    my $transform_str = "", my $h = 0, my $s = 0, my $v = 0, my $opacity = 1.0;
+    my $transform_str = "", my $h = 0, my $s = 0, my $v = 0, my $opacity = 1;
     foreach my $tr (@{$self->{transformations}}) {
         if($tr->type() eq 'geometric') {
             $transform_str = $transform_str.$tr->to_svg().", ";
