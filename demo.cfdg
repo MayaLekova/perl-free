@@ -1,0 +1,11 @@
+startshape Dedo
+
+rule Baba {
+    CIRCLE { x -100 y -50 h 120 sat 1 b -0.1 }
+    SQUARE { x -50 y -100 }
+}
+
+rule Dedo {
+    Baba {x 255 y 255 s 2 2 }
+    TRIANGLE { x 55 y 55 s 2 5 }
+}

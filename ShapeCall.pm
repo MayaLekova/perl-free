@@ -13,7 +13,7 @@ sub new {
 }
 
 sub to_svg {
-    my ($self, $parent) = @_;
+    my ($self, $parent, $grammar) = @_;
     my $transform_str = "", my $h = 0, my $s = 0, my $v = 0;
     foreach my $tr (@{$self->{transformations}}) {
         if($tr->type() eq 'geometric') {
@@ -33,7 +33,7 @@ sub to_svg {
         style => {fill   => $color_str, stroke => $color_str },
         transform => $transform_str);
     
-    if($self->{call_name} =~ 'TRIANGLE') {
+    if($self->{call_name} eq 'TRIANGLE') {
         my $xv = [-0.5 * SCALE, 0.5 * SCALE, 0];
         my $yv = [-0.5 * SCALE, -0.5 * SCALE, 0.5];
             
@@ -47,13 +47,18 @@ sub to_svg {
             style => {fill   => $color_str, stroke => $color_str },
             transform => $transform_str);
     }
-    elsif($self->{call_name} =~ 'SQUARE') {
+    elsif($self->{call_name} eq 'SQUARE') {
         $group->rect(width => SCALE, height => SCALE);
     }
-    elsif ($self->{call_name} =~ 'CIRCLE') {
+    elsif ($self->{call_name} eq 'CIRCLE') {
         $group->circle(cx=>0, cy=>0, r => SCALE);
     }
-    #TODO: find recursive shape call
+    else {
+	my $successor = $grammar->{rules}->{$self->{call_name}};
+	if($successor) {
+	    $successor->to_svg($group, $grammar);
+	}
+    }
 }
 
 1;

@@ -11,10 +11,10 @@ sub new {
 }
 
 sub to_svg {
-    my ($self, $parent) = @_;
+    my ($self, $parent, $grammar) = @_;
     
     foreach my $call (@{$self->{calls}}) {
-	$call->to_svg($parent);
+	$call->to_svg($parent, $grammar);
     }
 }
 
