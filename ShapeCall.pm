@@ -38,7 +38,7 @@ sub to_svg {
     
     if($self->{call_name} eq 'TRIANGLE') {
         my $xv = [-0.5 * SCALE, 0.5 * SCALE, 0];
-        my $yv = [-0.5 * SCALE, -0.5 * SCALE, 0.5];
+        my $yv = [-0.5 * SCALE, -0.5 * SCALE, 0.366 * SCALE];
             
         my $points = $parent->get_path(
                 x=>$xv, y=>$yv,
