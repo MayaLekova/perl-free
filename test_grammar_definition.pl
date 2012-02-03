@@ -176,4 +176,80 @@ CFDGTEXT
                                             "parse a richer grammar";
 };
 
+subtest "Paths", sub {
+    my $text6 = <<CFDGTEXT
+startshape Baba
+
+rule Baba {
+    Strinka {}
+}
+
+path Strinka {
+    MOVETO { x 5 y 10 }
+}
+
+CFDGTEXT
+;
+
+    my $parsed_hash6 = CFDGParser::parse($text6);
+
+    is_deeply($parsed_hash6->{paths}, [
+                                          {
+                                           path_name => 'Strinka',
+                                           directives => [
+                                                          {
+                                                           command => 'MOVETO',
+                                                           x => 5,
+                                                           y => 10,
+                                                          }
+                                                         ]
+                                          }
+                                      ],
+                                      "minimalistic path") || diag explain $parsed_hash6->{paths};
+
+
+    my $test7 = <<CFDGTEXT
+startshape Baba
+
+rule Baba {
+    Strinka{}
+}
+
+path Strinka {
+    MOVETO  { x 5 y 10 }
+    CURVETO { x 5 y 12 x1 3 y1 4 }
+    LINEREL { x 7 y 7 }
+}
+CFDGTEXT
+;
+
+    my $parsed_hash7 = CFDGParser::parse($test7);
+    is_deeply($parsed_hash7->{paths}, [
+                                       {
+                                        path_name => 'Strinka',
+                                        directives => [
+                                                       {
+                                                        command => 'MOVETO',
+                                                        x  => 5,
+                                                        y => 10,
+                                                       },
+                                                       {
+                                                        command => 'CURVETO',
+                                                        x  => 5,
+                                                        y => 12,
+                                                        x1 => 3,
+                                                        y1 => 4,
+                                                       },
+                                                       {
+                                                        command => 'LINEREL',
+                                                        x  => 7,
+                                                        y => 7,
+                                                       },
+                                                      ]
+                                       },
+                                      ],
+                                      "parse multiple directives per path") || diag explain $parse->{paths};
+
+};
+
 done_testing();

@@ -6,7 +6,7 @@ use Data::Dump 'dump';
 $\ = "\n";
 
 my $grammar = qr {
-    <nocontext:>startshape\s+<startshape=shape_name> <[rules=shape_definition]>*
+    <nocontext:>startshape\s+<startshape=shape_name> <[rules=shape_definition]>* <[paths=path_definition]>*
 
     <rule: shape_name>
         \w+
@@ -26,8 +26,25 @@ my $grammar = qr {
       | <cmd= (h|hue) >          <[values=signed_num]>
       | <cmd= (sat|saturation) > <[values=signed_num]>
       | <cmd= (b|brightness) >   <[values=signed_num]>
+    
     <rule: signed_num>
         -?\d+(\.\d+)?
+
+    <rule: num>
+        \d+(\.\d+)?
+
+    <rule: path_definition>
+        path <path_name=shape_name> \{ <[directives=path_directive]>* \}
+
+    <rule: path_directive>
+        <command=(MOVETO|MOVEREL)>   \{ x <x=signed_num> y <y=signed_num> \}
+      | <command=(LINETO|LINEREL)>   \{ x <x=signed_num> y <y=signed_num> \}
+      | <command=(ARCTO|ARCREL)>     \{ x <x=signed_num> y <y=signed_num> x_radius <x_radius=num> y_radius <y_radius=num> ellipse_angle <ellipse_angle=num>\}
+      | <command=(ARCTO|ARCREL)>     \{ x <x=signed_num> y <y=signed_num> (r|radius) <radius=num> \}
+      | <command=(CURVETO|CURVEREL)> \{ x <x=signed_num> y <y=signed_num> x1 <x1=signed_num> y1 <y1=signed_num> (x2 <x2=signed_num> y2 <y2=signed_num>)? \}
+      | <command=(CLOSEPOLY)>        \{  \}
+      | <command=(STROKE)>           \{ (w|width) <width=num> \}
+
 }xms;
 
 sub parse ($){
