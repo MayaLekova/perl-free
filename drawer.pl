@@ -9,7 +9,7 @@ my $test_text = <<CFDGTEXT
     startshape Baba
 
     rule Baba {
-        CIRCLE { x 100 y 50 }
+        CIRCLE { x 100 y 50 h 120 sat 1 b -0.1 }
         SQUARE { x 50 y 100 }
     }
 CFDGTEXT

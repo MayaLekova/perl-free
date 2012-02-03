@@ -14,26 +14,23 @@ sub new {
 
 sub to_svg {
     my ($self, $parent) = @_;
-    my $transform_str = "", my $color_str = ""; #TODO: HSV
+    my $transform_str = "", my $h = 0, my $s = 0, my $v = 0;
     foreach my $tr (@{$self->{transformations}})
     {
-	if($tr->type() =~ 'geometric')
+	if($tr->type() eq 'geometric')
 	{
 	    $transform_str = $transform_str.$tr->to_svg().", ";
 	}
-	elsif($tr->type() =~ 'color')
+	elsif($tr->type() eq 'color')
 	{
-	    $color_str = $color_str.$tr->to_svg().", ";
+            ($h, $s, $v) = $tr->to_hsv($h, $s, $v);
 	}
     }
     if(length($transform_str) > 0)
     {
 	$transform_str = substr($transform_str, 0, -2);
     }
-    if(length($color_str) > 0)
-    {
-	$color_str = substr($color_str, 0, -2);
-    }
+    my $color_str = Transformation::to_rgb($h, $s, $v);
 
     my $group = $parent->tag('g', 
 		style => {fill   => $color_str, stroke => $color_str },
@@ -41,7 +38,6 @@ sub to_svg {
     
     if($self->{call_name} =~ 'TRIANGLE')
     {
-	print "CALL: ".$self->{call_name}."\n";
 	my $xv = [-0.5 * SCALE, 0.5 * SCALE, 0];
 	my $yv = [-0.5 * SCALE, -0.5 * SCALE, 0.5];
 		

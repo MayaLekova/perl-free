@@ -1,11 +1,12 @@
 package Transformation;
 use Math::Trig;
 use Test::More;
+#use Graphics::ColorObject;
 use strict;
 
 use constant GEOMETRIC => {'s' => 1, 'size' => 1, 'x' => 1, 'y' => 1, 'r' => 1, 'rotate' => 1, 'skew' => 1};
 use constant COLOR => {'h' => 1, 'hue' => 1, 'sat' => 1,  'saturation' => 1, 'b' => 1, 'brightness' => 1, 'a' => 1, 'alpha' => 1};
-use constant SHORT_COMMANDS => {'h' => 'hue', 'sat' => 'saturation', 's' => 'size', 'a' => 'alpha', 'r' => 'rotate', 'b' => 'brightness'};
+use constant SHORT_COMMANDS => {'h' => 'hue', 'sat' => 'saturation', 'b' => 'brightness', 's' => 'size', 'a' => 'alpha', 'r' => 'rotate'};
 use constant GEOMETRIC_MATRIX_CONSTRUCTORS => {
     x => sub {
         my $x = shift;
@@ -47,7 +48,7 @@ sub new {
     my $class = shift;
     my $self = shift;
 
-    if (exists SHORT_COMMANDS->{$self->{cmd}}) {	#store command internally as short command
+    if (exists SHORT_COMMANDS->{$self->{cmd}}) {	#store command internally as FULL NAME command
         $self->{cmd} = SHORT_COMMANDS->{$self->{cmd}};
     }
 
@@ -85,34 +86,69 @@ sub matrix {
 sub to_svg {
     my $self = shift;
 
-    if($self->{cmd} =~ "s") {
+    if($self->{cmd} eq "size") {
         return "scale(".@{$self->{values}}[0].", ".@{$self->{values}}[1].")";
     }
-   elsif($self->{cmd} =~ "x") {
+   elsif($self->{cmd} eq "x") {
         return "translate(".@{$self->{values}}[0].", 0)";
     }
-    elsif($self->{cmd} =~ "y") {
+    elsif($self->{cmd} eq "y") {
         return "translate(0, ".@{$self->{values}}[0].")";
     }
-    elsif($self->{cmd} =~ "r") {
+    elsif($self->{cmd} eq "rotate") {
         return "rotate(".@{$self->{values}}[0].")";
     }
-    elsif($self->{cmd} =~ "skew") {
+    elsif($self->{cmd} eq "skew") {
         return "skewX(".@{$self->{values}}[0]."), skewY(".@{$self->{values}}[1].")";
     }
-    elsif($self->{cmd} =~ "h") {
-        # TODO: convert hsv to rgb. Use http://search.cpan.org/~gphat/Graphics-Color-0.29/lib/Graphics/Color/HSV.pm
-    }
-    elsif($self->{cmd} =~ "sat") {
-        # TODO: convert hsv to rgb
-    }
-    elsif($self->{cmd} =~ "b") {
-        # TODO: convert hsv to rgb
-    }
-    elsif($self->{cmd} =~ "a") {
+    elsif($self->{cmd} eq "alpha") {
         # alpha?
     }
     return "";
+}
+
+sub to_hsv {
+    my $self = shift;
+    my ($h, $s, $v) = @_;
+    
+    if($self->{cmd} eq "hue") {
+	$h += @{$self->{values}}[0];
+    }
+    elsif($self->{cmd} eq "saturation") {
+	$s += @{$self->{values}}[0];
+    }
+    elsif($self->{cmd} eq "brightness") {
+	$v += @{$self->{values}}[0];
+    }
+    
+    return ($h, $s, $v);
+}
+
+sub to_rgb {
+    my ($h, $s, $v) = @_;
+    
+    #================================================== Color HSV->RGB
+    
+    #~ my $color = Graphics::Color::HSV->new({
+        #~ hue         => $h,
+        #~ saturation => $s,
+        #~ value       => $v,
+    #~ });
+
+    #~ print "hsv as string: ".$color->as_string()."\n";
+
+    #~ my $rgb = $color->to_rgb();
+    
+    #~ print "rgb as int: ".$rgb->as_integer_string()."\n";
+    #~ print "rgb(".$rgb->r.", ".$rgb->g.", ".$rgb->b.")\n";
+    
+    #================================================== Color object
+    
+    #~ my $color = Graphics::ColorObject->new_HSV([$h, $s, $v]);
+    #~ my ($r, $g, $b) = @{ $color->as_RGB255() };
+    #~ print "rgb(".$r.", ".$g.", ".$b.")\n";
+
+    return "rgb(255, 0, 0)";
 }
 
 1;

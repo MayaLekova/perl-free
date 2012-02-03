@@ -23,7 +23,7 @@ my $grammar = qr {
       | <cmd= (y) >              <[values=signed_num]>
       | <cmd= (r|rotate)>        <[values=signed_num]>
       | <cmd= (skew) >           <[values=signed_num]>{1,2} % <_sep=( )>
-      | <cmd= (hue|h) >          <[values=signed_num]>
+      | <cmd= (h|hue) >          <[values=signed_num]>
       | <cmd= (sat|saturation) > <[values=signed_num]>
       | <cmd= (b|brightness) >   <[values=signed_num]>
     <rule: signed_num>

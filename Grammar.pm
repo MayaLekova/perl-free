@@ -16,8 +16,7 @@ sub new {
 
 sub to_svg {
     my ($self, $svg) = @_;
-    #~ $self->{rules}->{$self->{axiom}}->to_svg();
-    $self->{rules}->[0]->to_svg($svg);
+    $self->{rules}->{$self->{axiom}}->to_svg($svg);
 }
 
 1;
