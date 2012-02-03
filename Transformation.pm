@@ -87,6 +87,9 @@ sub to_svg {
     my $self = shift;
 
     if($self->{cmd} eq "size") {
+	if(!@{$self->{values}}[1]) {
+	    @{$self->{values}}[1] = @{$self->{values}}[0];
+        }
         return "scale(".@{$self->{values}}[0].", ".@{$self->{values}}[1].")";
     }
    elsif($self->{cmd} eq "x") {
@@ -99,6 +102,9 @@ sub to_svg {
         return "rotate(".@{$self->{values}}[0].")";
     }
     elsif($self->{cmd} eq "skew") {
+	if(!@{$self->{values}}[1]) {
+	    @{$self->{values}}[1] = @{$self->{values}}[0];
+        }
         return "skewX(".@{$self->{values}}[0]."), skewY(".@{$self->{values}}[1].")";
     }
     elsif($self->{cmd} eq "alpha") {

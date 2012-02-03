@@ -6,6 +6,6 @@ rule Baba {
 }
 
 rule Dedo {
-    Baba {x 255 y 255 s 2 2 }
-    TRIANGLE { x 55 y 55 s 2 5 }
+    Baba {x 255 y 255 s 2 }
+    TRIANGLE { x 55 y 65 s 2 5 }
 }
