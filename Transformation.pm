@@ -111,9 +111,6 @@ sub to_svg {
         }
         return "skewX(".@{$self->{values}}[0]."), skewY(".@{$self->{values}}[1].")";
     }
-    elsif($self->{cmd} eq "alpha") {
-        # alpha?
-    }
     return "";
 }
 
