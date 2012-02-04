@@ -15,7 +15,7 @@ my $grammar = qr {
         rule <shape_name> \{ <[calls=shape_call]>* \}
 
     <rule: shape_call>
-        <call_name=shape_name> \{ <[transformations=transformation]>* \}
+        (<loop_cnt=num> \* \{ <[loop_transformations=transformation]>+ \})? <call_name=shape_name> \{ <[transformations=transformation]>* \}
 
     <rule: transformation>
         <cmd= (s|size) >         <[values=signed_num]>{1,2} % <_sep=( )>

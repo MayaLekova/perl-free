@@ -9,6 +9,11 @@ sub new {
     my $self = shift;
 
     $self->{transformations} = [ map { Transformation->new($_) } @{$self->{transformations}} ];
+
+    if ($self->{loop_cnt}) {
+        $self->{loop_transformations} = [ map { Transformation->new($_) } @{$self->{loop_transformations}} ];
+    }
+
     bless $self, $class;
 }
 
