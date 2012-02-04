@@ -1,0 +1,31 @@
+startshape ROT_GEN
+
+
+rule ROT_GEN { 
+   9 * { r (40) } ROT { x 4 }
+   ROT_GEN { s 0.5 h 40  }  
+}
+
+rule ROT_GEN { 
+   4 * { r (90) } ROT { x 4 }
+   ROT_GEN { s 0.5 }  
+}
+
+rule ROT {
+  6 * { r 60 } SCONTOUR  {  x 1  }
+ 
+}
+
+rule SCONTOUR { 
+   X { h 220.31 sat 0.9617 b 1.0000 } 
+   X { s 0.9 b 1 }  
+}
+
+rule X {
+  TRIANGLE { }
+  Y {}
+}
+
+rule Y { 
+  TRIANGLE { flip 0 } 
+}
