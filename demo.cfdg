@@ -1,11 +1,15 @@
-startshape Dedo
+startshape Malko
 
 rule Baba {
     CIRCLE { x -100 y -50 h 150 sat 0.5 b 0.7 }
-    SQUARE { x -100 y -50 a 0.5 }
+    5 * { x 15 r 15 } SQUARE { x -100 y -50 a 0.5 }
 }
 
 rule Dedo {
-    Baba {x 255 y 255 s 2 }
+    3 * { s 1 -1 x 200 } Baba {x 25 y 25 s 2 }
     TRIANGLE { x 55 y 65 s 2 5 }
+}
+
+rule Malko {
+	Dedo { x 100 y 300 s 0.3 }
 }

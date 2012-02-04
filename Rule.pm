@@ -12,7 +12,7 @@ sub new {
 
 sub to_svg {
     my ($self, $parent, $grammar, $max_depth) = @_;
-    
+
     foreach my $call (@{$self->{calls}}) {
         $call->to_svg($parent, $grammar, $max_depth - 1);
     }
